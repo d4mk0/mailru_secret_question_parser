@@ -1,0 +1,9 @@
+<%= form_for :input, url: parse_mails_path do |f| %>
+  <div>
+    <%= f.label "Enter filename" %>
+    <%= f.text_field :file %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
