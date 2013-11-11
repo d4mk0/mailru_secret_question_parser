@@ -53,6 +53,7 @@ GEM
     mime-types (1.25)
     multi_json (1.8.2)
     mysql2 (0.3.14)
+    nokogiri (1.5.10)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-cache (1.2)
@@ -111,6 +112,7 @@ DEPENDENCIES
   execjs
   jquery-rails
   mysql2
+  nokogiri
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
   therubyracer
