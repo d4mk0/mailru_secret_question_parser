@@ -25,7 +25,7 @@ class ParserController < ApplicationController
     path = '/cgi-bin/passremind'
     par = {}
     cntr = 0
-    list = User.where("(question is null or question = '') and frozen_now<>1 and id > 7275")
+    list = User.where("(question is null or question = '') and frozen_now<>1 and id > 7629")
     list_size = list.size.to_s
     list.each do |u|
       sleep(6)
@@ -42,7 +42,7 @@ class ParserController < ApplicationController
         source.css('.login1 tr td div').text =~ /.*:\n(.*)/
         question = $1
         if question.present?
-          question.strip
+          question.strip!
           puts "\n"+question+"\n\n"
         end
         u.update_attribute(:question, question) unless frozen
