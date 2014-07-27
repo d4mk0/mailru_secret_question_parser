@@ -11,16 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131110084356) do
+ActiveRecord::Schema.define(:version => 20140420125728) do
 
   create_table "users", :force => true do |t|
     t.string   "mail"
     t.string   "question"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
-    t.boolean  "frozen_now",                 :default => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+    t.boolean  "frozen_now",                        :default => false
     t.string   "password"
-    t.string   "comment",    :limit => 1500
+    t.string   "comment",           :limit => 1500
+    t.boolean  "is_phone_assigned",                 :default => false
+    t.integer  "response_status"
   end
+
+  add_index "users", ["is_phone_assigned"], :name => "index_users_on_is_phone_assigned"
+  add_index "users", ["response_status"], :name => "index_users_on_response_status"
 
 end

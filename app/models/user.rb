@@ -1,18 +1,18 @@
-#encoding: utf-8
 class User < ActiveRecord::Base
   validates :mail, presence: true, uniqueness: true
-  attr_accessible :mail
+  attr_accessible :mail, :is_phone_assigned, :response_status, :question, :password
   
+  scope :unsuccessfulls, -> {where 'response_status != 200 OR response_status is null'}
+  scope :without_password, -> {where password: nil}
+  scope :processed, -> {where response_status: 200}
+  scope :by_question, ->(question) {where question: question}
   
-  def self.get_bad_questions
-    questions = []
-    file = File.open("#{Rails.root}/mails/bad_questions.txt").read
-    file.gsub!(/\r\n?/, "\n")
-    file.each_line do |question|
-      question.delete!("\n")
-      questions << question
-    end
-    questions
+  def self.get_uniq_questions
+    without_password.processed.group(:question).order('count_all desc').count.to_yaml
+  end
+  
+  def self.save_questions(file = 'questions.txt')
+    File.open("#{Rails.root}/#{file}", "w") {|file| file.write get_uniq_questions }
   end
     
   def self.mail_question_stripping
@@ -61,4 +61,9 @@ class User < ActiveRecord::Base
       end
     end
   end
+  
+  def set_pasword(password = 'qweqwe456qwe')
+    update_attributes password: password
+  end
 end
+

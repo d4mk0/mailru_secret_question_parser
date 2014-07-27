@@ -1,0 +1,9 @@
+<%= form_for :import, url: start_import_path, multipart: true do |f| %>
+  <div>
+    <%= f.label "Enter filename" %>
+    <%= f.file_field :file %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
